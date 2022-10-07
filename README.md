@@ -1,8 +1,14 @@
-# third-react
+# react-learn
 
-Link: [Here](https://reactjs.org/tutorial/tutorial.html)
+```
+Branches
+├─ ..
+└─ ticTacToe : tutorial
+```
 
-**Tutorial to create tic-tac-toe game**
+**Links**
+
+- [ticTacToe](https://reactjs.org/tutorial/tutorial.html)
 
 ```
 Npm Commands
