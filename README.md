@@ -1,7 +1,7 @@
 # react-learn
 
 ```
-Branches
+Branches (recent -> first)
 ├─ ..
 └─ ticTacToe : tutorial
 ```
@@ -40,9 +40,11 @@ webpack-dev-server@4.11.1
 ##Packages
 ```
 
-**.gitignore**
-
-- node_modules
-- package-lock.json
-- .scripts
-- dist
+```
+.gitignore
+----------
+node_modules
+package-lock.json
+.scripts
+dist
+```
