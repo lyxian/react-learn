@@ -19,6 +19,7 @@ class App extends Component {
         { id: "todo-1", name: "Sleep", completed: false },
         { id: "todo-2", name: "Repeat", completed: false },
       ],
+      filter: "All",
     };
     // this.addTask = this.addTask.bind(this);
   }
@@ -38,7 +39,6 @@ class App extends Component {
       }
       return task;
     });
-    console.log(updatedTasks);
     this.setState({
       tasks: updatedTasks,
     });
@@ -65,29 +65,49 @@ class App extends Component {
     });
   }
 
+  setFilter(filter) {
+    this.setState({
+      filter: filter,
+    });
+  }
+
   render() {
-    const taskList = this.state.tasks.map((task) => (
-      <ToDo
-        name={task.name}
-        completed={task.completed}
-        id={task.id}
-        key={task.id}
-        toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
-        deleteTask={this.deleteTask.bind(this)}
-        editTask={this.editTask.bind(this)}
+    const FILTER_MAP = {
+      All: () => true,
+      Active: (task) => !task.completed,
+      Completed: (task) => task.completed,
+    };
+    const FILTER_NAMES = Object.keys(FILTER_MAP);
+    const filterList = FILTER_NAMES.map((name) => (
+      <FilterButton
+        key={name}
+        name={name}
+        isPressed={name === this.state.filter}
+        setFilter={this.setFilter.bind(this)}
       />
     ));
+    const taskList = this.state.tasks
+      .filter(FILTER_MAP[this.state.filter])
+      .map((task) => (
+        <ToDo
+          name={task.name}
+          completed={task.completed}
+          id={task.id}
+          key={task.id}
+          toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
+          deleteTask={this.deleteTask.bind(this)}
+          editTask={this.editTask.bind(this)}
+        />
+      ));
     const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
-    const headingText = `${taskList.length} ${tasksNoun} remaining`;
+    const headingText =
+      `${taskList.length} ${tasksNoun} ` +
+      (this.state.filter === "Completed" ? "completed" : "remaining");
     return (
       <div className="todoapp stack-large">
         <h1>TodoMatic</h1>
         <Form addTask={this.addTask.bind(this)} />
-        <div className="filters btn-group stack-exception">
-          <FilterButton />
-          <FilterButton />
-          <FilterButton />
-        </div>
+        <div className="filters btn-group stack-exception">{filterList}</div>
         <h2 id="list-heading">{headingText}</h2>
         <ul
           role="list"
