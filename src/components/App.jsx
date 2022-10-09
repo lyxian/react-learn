@@ -51,6 +51,20 @@ class App extends Component {
     });
   }
 
+  editTask(id, newName) {
+    const editedTaskList = this.state.tasks.map((task) => {
+      // if this task has the same ID as the edited task
+      if (id === task.id) {
+        //
+        return { ...task, name: newName };
+      }
+      return task;
+    });
+    this.setState({
+      tasks: editedTaskList,
+    });
+  }
+
   render() {
     const taskList = this.state.tasks.map((task) => (
       <ToDo
@@ -60,6 +74,7 @@ class App extends Component {
         key={task.id}
         toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
         deleteTask={this.deleteTask.bind(this)}
+        editTask={this.editTask.bind(this)}
       />
     ));
     const tasksNoun = taskList.length !== 1 ? "tasks" : "task";

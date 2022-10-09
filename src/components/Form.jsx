@@ -12,7 +12,6 @@ class Form extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // alert("Hello, world!");
     this.props.addTask(this.state.placeHolder);
     this.setState({
       placeHolder: "",
