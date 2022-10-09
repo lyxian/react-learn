@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import "./index.css";
 
 import ToDo from "./ToDo";
+import Form from "./Form";
+import FilterButton from "./FilterButton";
+
+// function addTask(name) {
+//   alert(name);
+// }
 
 class App extends Component {
   // OR root.render(<App tasks=../>);
@@ -14,6 +20,15 @@ class App extends Component {
         { id: "todo-2", name: "Repeat", completed: false },
       ],
     };
+    // this.addTask = this.addTask.bind(this);
+  }
+
+  addTask(name) {
+    const taskList = this.state.tasks;
+    const newTask = { name, id: `todo-${taskList.length}`, completed: false };
+    this.setState({
+      tasks: taskList.concat(newTask),
+    });
   }
 
   render() {
@@ -25,53 +40,24 @@ class App extends Component {
         key={task.id}
       />
     ));
+    const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
+    const headingText = `${taskList.length} ${tasksNoun} remaining`;
     return (
       <div className="todoapp stack-large">
         <h1>TodoMatic</h1>
-        <form>
-          <h2 className="label-wrapper">
-            <label htmlFor="new-todo-input" className="label__lg">
-              What needs to be done?
-            </label>
-          </h2>
-          <input
-            type="text"
-            id="new-todo-input"
-            className="input input__lg"
-            name="text"
-            autoComplete="off"
-          />
-          <button type="submit" className="btn btn__primary btn__lg">
-            Add
-          </button>
-        </form>
+        <Form addTask={this.addTask.bind(this)} />
         <div className="filters btn-group stack-exception">
-          <button type="button" className="btn toggle-btn" aria-pressed="true">
-            <span className="visually-hidden">Show </span>
-            <span>all</span>
-            <span className="visually-hidden"> tasks</span>
-          </button>
-          <button type="button" className="btn toggle-btn" aria-pressed="false">
-            <span className="visually-hidden">Show </span>
-            <span>Active</span>
-            <span className="visually-hidden"> tasks</span>
-          </button>
-          <button type="button" className="btn toggle-btn" aria-pressed="false">
-            <span className="visually-hidden">Show </span>
-            <span>Completed</span>
-            <span className="visually-hidden"> tasks</span>
-          </button>
+          <FilterButton />
+          <FilterButton />
+          <FilterButton />
         </div>
-        <h2 id="list-heading">3 tasks remaining</h2>
+        <h2 id="list-heading">{headingText}</h2>
         <ul
           role="list"
           className="todo-list stack-large stack-exception"
           aria-labelledby="list-heading"
         >
           {taskList}
-          {/* <ToDo name="Eat" completed={true} id="to-do-0" />
-          <ToDo name="Sleep" completed={false} id="to-do-1" />
-          <ToDo name="Repeat" completed={false} id="to-do-2" /> */}
         </ul>
       </div>
     );

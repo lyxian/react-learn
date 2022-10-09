@@ -3,7 +3,6 @@ import React, { Component } from "react";
 
 class ToDo extends Component {
   render() {
-    console.log(this.props);
     return (
       <li className="todo stack-small">
         <div className="c-cb">
