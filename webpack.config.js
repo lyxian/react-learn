@@ -6,6 +6,7 @@ const config = {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js"
   },
+  // mode: "development" // "production"
   devServer: {
     port: 3000,
     // hot: true,
