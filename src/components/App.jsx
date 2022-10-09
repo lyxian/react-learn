@@ -31,6 +31,26 @@ class App extends Component {
     });
   }
 
+  toggleTaskCompleted(id) {
+    const updatedTasks = this.state.tasks.map((task) => {
+      if (id === task.id) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    console.log(updatedTasks);
+    this.setState({
+      tasks: updatedTasks,
+    });
+  }
+
+  deleteTask(id) {
+    const remainingTasks = this.state.tasks.filter((task) => id !== task.id);
+    this.setState({
+      tasks: remainingTasks,
+    });
+  }
+
   render() {
     const taskList = this.state.tasks.map((task) => (
       <ToDo
@@ -38,6 +58,8 @@ class App extends Component {
         completed={task.completed}
         id={task.id}
         key={task.id}
+        toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
+        deleteTask={this.deleteTask.bind(this)}
       />
     ));
     const tasksNoun = taskList.length !== 1 ? "tasks" : "task";

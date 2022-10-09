@@ -10,6 +10,7 @@ class ToDo extends Component {
             id={this.props.id}
             type="checkbox"
             defaultChecked={this.props.completed}
+            onChange={() => this.props.toggleTaskCompleted(this.props.id)}
           />
           <label className="todo-label" htmlFor="todo-0">
             {this.props.name}
@@ -19,7 +20,11 @@ class ToDo extends Component {
           <button type="button" className="btn">
             Edit <span className="visually-hidden">{this.props.name}</span>
           </button>
-          <button type="button" className="btn btn__danger">
+          <button
+            type="button"
+            className="btn btn__danger"
+            onClick={() => this.props.deleteTask(this.props.id)}
+          >
             Delete <span className="visually-hidden">{this.props.name}</span>
           </button>
         </div>
