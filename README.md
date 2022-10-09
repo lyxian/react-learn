@@ -1,14 +1,9 @@
 # react-learn
 
-```
-Branches (recent -> first)
-├─ ..
-└─ ticTacToe : tutorial
-```
-
-**Links**
+**Links** (recent -> last)
 
 - [ticTacToe](https://reactjs.org/tutorial/tutorial.html)
+- [to-do-list]()
 
 ```
 Npm Commands
