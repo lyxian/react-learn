@@ -105,7 +105,7 @@ class App extends Component {
       (this.state.filter === "Completed" ? "completed" : "remaining");
     return (
       <div className="todoapp stack-large">
-        <h1>TodoMatic</h1>
+        <h1>DIY To-Do List</h1>
         <Form addTask={this.addTask.bind(this)} />
         <div className="filters btn-group stack-exception">{filterList}</div>
         <h2 id="list-heading">{headingText}</h2>
