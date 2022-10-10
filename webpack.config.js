@@ -1,4 +1,6 @@
+require("dotenv").config();
 const path = require("path");
+const webpack = require('webpack');
 
 const config = {
   entry: "./src/index.js",
@@ -32,7 +34,12 @@ const config = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".wasm", ".mjs", "*"]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.LOCALHOST': JSON.stringify(process.env.LOCALHOST),
+    }),
+  ],
 };
 
 module.exports = config;

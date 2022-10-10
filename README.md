@@ -13,6 +13,8 @@ Npm Commands
 
 ```
 ##Packages (list required packages & run .scripts/npm-init.sh)
+axios@1.1.2
+cors@2.8.5
 dotenv@16.0.3
 express@4.18.1
 mongoose@6.6.3
