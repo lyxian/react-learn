@@ -4,8 +4,9 @@ const router = express.Router();
 
 router.post('/post', async (request, response) => {
     const data = new Model({
+        id: request.body.id,
         name: request.body.name,
-        age: request.body.age
+        completed: request.body.completed
     })
     try {
         const dataToSave = await data.save();
@@ -15,7 +16,7 @@ router.post('/post', async (request, response) => {
             message: error.message
         });
     }
-    // response.send('Post API');
+    // response.send('Post API');  <<  causing "Error can't set headers"
 })
 
 router.get('/getAll', async (request, response) => {
