@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "clean": "find dist -type f | { xargs rm || true; }",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development",
+    "server": "nodemon server/server.js"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
