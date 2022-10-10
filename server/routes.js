@@ -15,7 +15,7 @@ router.post('/post', async (request, response) => {
             message: error.message
         });
     }
-    response.send('Post API');
+    // response.send('Post API');
 })
 
 router.get('/getAll', async (request, response) => {
