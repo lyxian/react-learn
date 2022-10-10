@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import axios from "axios";
+
+const localhost = process.env.LOCALHOST;
+// const axios = _axios.create({
+//   baseURL: "",
+// });
 
 class Form extends Component {
   constructor(props) {
@@ -12,10 +18,26 @@ class Form extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.addTask(this.state.placeHolder);
-    this.setState({
-      placeHolder: "",
-    });
+
+    // Add to DB
+    const data = {
+      id: `to-do-${this.props.count}`,
+      name: this.state.placeHolder,
+      completed: false,
+    };
+
+    axios
+      .post(`${localhost}/api/post`, data)
+      .then((res) => {
+        this.props.addTask(this.state.placeHolder);
+        this.setState({
+          placeHolder: "",
+        });
+      })
+      .catch((err) => {
+        alert("Error in adding task!");
+        // console.log("Error in adding task!");
+      });
   }
 
   handleChange(e) {

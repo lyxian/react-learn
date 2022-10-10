@@ -1,13 +1,12 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./index.css";
 
 import ToDo from "./ToDo";
 import Form from "./Form";
 import FilterButton from "./FilterButton";
 
-// function addTask(name) {
-//   alert(name);
-// }
+const localhost = process.env.LOCALHOST;
 
 class App extends Component {
   // OR root.render(<App tasks=../>);
@@ -22,6 +21,19 @@ class App extends Component {
       filter: "All",
     };
     // this.addTask = this.addTask.bind(this);
+  }
+
+  componentDidMount() {
+    axios
+      .get(`${localhost}/api/getAll`)
+      .then((res) => {
+        this.setState({
+          tasks: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log("Error in getting tasks");
+      });
   }
 
   addTask(name) {
@@ -106,7 +118,10 @@ class App extends Component {
     return (
       <div className="todoapp stack-large">
         <h1>DIY To-Do List</h1>
-        <Form addTask={this.addTask.bind(this)} />
+        <Form
+          addTask={this.addTask.bind(this)}
+          count={this.state.tasks.length}
+        />
         <div className="filters btn-group stack-exception">{filterList}</div>
         <h2 id="list-heading">{headingText}</h2>
         <ul
