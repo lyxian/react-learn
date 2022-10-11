@@ -57,10 +57,24 @@ class App extends Component {
   }
 
   deleteTask(id) {
-    const remainingTasks = this.state.tasks.filter((task) => id !== task.id);
-    this.setState({
-      tasks: remainingTasks,
-    });
+    // Remove from DB
+    const data = { id };
+
+    console.log(data);
+    axios
+      .post(`${localhost}/api/delete`, data)
+      .then((res) => {
+        const remainingTasks = this.state.tasks.filter(
+          (task) => id !== task.id
+        );
+        this.setState({
+          tasks: remainingTasks,
+        });
+      })
+      .catch((err) => {
+        alert("Error in deleting task!");
+        // console.log("Error in adding task!");
+      });
   }
 
   editTask(id, newName) {
