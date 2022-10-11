@@ -21,7 +21,7 @@ class Form extends Component {
 
     // Add to DB
     const data = {
-      id: `to-do-${this.props.count}`,
+      id: `todo-${this.props.last}`,
       name: this.state.placeHolder,
       completed: false,
     };
@@ -29,7 +29,7 @@ class Form extends Component {
     axios
       .post(`${localhost}/api/post`, data)
       .then((res) => {
-        this.props.addTask(this.state.placeHolder);
+        this.props.addTask(data);
         this.setState({
           placeHolder: "",
         });

@@ -13,11 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [
-        { id: "todo-0", name: "Eat", completed: true },
-        { id: "todo-1", name: "Sleep", completed: false },
-        { id: "todo-2", name: "Repeat", completed: false },
-      ],
+      tasks: [],
       filter: "All",
     };
     // this.addTask = this.addTask.bind(this);
@@ -36,9 +32,10 @@ class App extends Component {
       });
   }
 
-  addTask(name) {
+  addTask(newTask) {
     const taskList = this.state.tasks;
-    const newTask = { name, id: `todo-${taskList.length}`, completed: false };
+    // const newTask = { name, id: `todo-${taskList.length}`, completed: false };
+    console.log(newTask);
     this.setState({
       tasks: taskList.concat(newTask),
     });
@@ -155,12 +152,16 @@ class App extends Component {
     const headingText =
       `${taskList.length} ${tasksNoun} ` +
       (this.state.filter === "Completed" ? "completed" : "remaining");
+    const last = this.state.tasks.length
+      ? +this.state.tasks.slice(-1)[0].id.split("-").slice(-1) + 1
+      : 0;
     return (
       <div className="todoapp stack-large">
         <h1>DIY To-Do List</h1>
         <Form
           addTask={this.addTask.bind(this)}
           count={this.state.tasks.length}
+          last={last}
         />
         <div className="filters btn-group stack-exception">{filterList}</div>
         <h2 id="list-heading">{headingText}</h2>
