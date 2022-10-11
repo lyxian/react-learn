@@ -45,8 +45,11 @@ class App extends Component {
   }
 
   toggleTaskCompleted(id) {
+    // Update DB
+    var completed;
     const updatedTasks = this.state.tasks.map((task) => {
       if (id === task.id) {
+        completed = !task.completed;
         return { ...task, completed: !task.completed };
       }
       return task;
@@ -54,13 +57,23 @@ class App extends Component {
     this.setState({
       tasks: updatedTasks,
     });
+    const data = { id, completed: completed };
+
+    axios
+      .post(`${localhost}/api/update`, data)
+      .then((res) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        alert("Error in updating task!");
+        // console.log("Error in adding task!");
+      });
   }
 
   deleteTask(id) {
     // Remove from DB
     const data = { id };
 
-    console.log(data);
     axios
       .post(`${localhost}/api/delete`, data)
       .then((res) => {
@@ -70,6 +83,7 @@ class App extends Component {
         this.setState({
           tasks: remainingTasks,
         });
+        console.log(res);
       })
       .catch((err) => {
         alert("Error in deleting task!");
@@ -78,17 +92,29 @@ class App extends Component {
   }
 
   editTask(id, newName) {
-    const editedTaskList = this.state.tasks.map((task) => {
-      // if this task has the same ID as the edited task
-      if (id === task.id) {
-        //
-        return { ...task, name: newName };
-      }
-      return task;
-    });
-    this.setState({
-      tasks: editedTaskList,
-    });
+    // Update DB
+    const data = { id, name: newName };
+
+    console.log(data);
+    axios
+      .post(`${localhost}/api/update`, data)
+      .then((res) => {
+        const editedTaskList = this.state.tasks.map((task) => {
+          // if this task has the same ID as the edited task
+          if (id === task.id) {
+            //
+            return { ...task, name: newName };
+          }
+          return task;
+        });
+        this.setState({
+          tasks: editedTaskList,
+        });
+      })
+      .catch((err) => {
+        alert("Error in updating task!");
+        // console.log("Error in adding task!");
+      });
   }
 
   setFilter(filter) {

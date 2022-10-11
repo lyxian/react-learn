@@ -42,11 +42,12 @@ router.get('/getOne/:id', async (request, response) => {
     }
 })
 
-router.patch('/update/:id', async (request, response) => {
+// router.patch('/update/:id', async (request, response) => {
+router.post('/update', async (request, response) => {
     try {
-        const updatedData = request.body;
-        const options = { new: true };
-        const result = await Model.findOneAndUpdate({ id: request.params.id }, updatedData, options)
+        const body = request.body;
+        const options = { new: false };
+        const result = await Model.findOneAndUpdate({ id: body.id }, { name: body.name, completed: body.completed }, options)
         response.status(201).json(result);
     } catch (error) {
         response.status(400).json({
@@ -61,7 +62,7 @@ router.post('/delete', async (request, response) => {
         // const data = await Model.findOne({ id: request.params.id })
         const body = request.body
         const data = await Model.findOneAndDelete(body)
-        response.status(201).json(`Docuiment with ${data.name} has been deleted.`);
+        response.status(201).json(`Document with ${data.name} has been deleted.`);
     } catch (error) {
         response.status(500).json({
             message: error.message
