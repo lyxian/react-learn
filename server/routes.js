@@ -62,7 +62,9 @@ router.post('/delete', async (request, response) => {
         // const data = await Model.findOne({ id: request.params.id })
         const body = request.body
         const data = await Model.findOneAndDelete(body)
-        response.status(201).json(`Document with ${data.name} has been deleted.`);
+        response.status(201).json({
+            message: `Document with ${data.name} has been deleted.`
+        });
     } catch (error) {
         response.status(500).json({
             message: error.message
