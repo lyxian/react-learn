@@ -4,7 +4,8 @@
   "scripts": {
     "clean": "find dist -type f | { xargs rm || true; }",
     "start": "webpack-dev-server --mode development",
-    "server": "nodemon server/server.js"
+    "server": "nodemon server/server.js",
+    "all": "npm run start & npm run server"
   },
   "dependencies": {
     "axios": "^1.1.2",
