@@ -4,6 +4,7 @@
 
 - [ticTacToe](https://reactjs.org/tutorial/tutorial.html)
 - [to-do-list](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_todo_list_beginning)
+- [book-store](https://blog.logrocket.com/mern-stack-tutorial)
 
 ```
 Npm Commands
