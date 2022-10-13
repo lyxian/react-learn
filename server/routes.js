@@ -1,69 +1,39 @@
-const Model = require('./model');
+const Book = require('./model');
 const express = require('express');
 const router = express.Router();
 
-router.post('/post', async (request, response) => {
-    const data = new Model({
-        name: request.body.name,
-        age: request.body.age
-    })
-    try {
-        const dataToSave = await data.save();
-        response.status(200).json(dataToSave);
-    } catch (error) {
-        response.statusMessage(400).json({
-            message: error.message
-        });
-    }
-    // response.send('Post API');
-})
+router.get('/test', (req, res) => res.send('book route testing!'));
 
-router.get('/getAll', async (request, response) => {
-    try {
-        const data = await Model.find();
-        response.status(200).json(data);
-    } catch (error) {
-        response.status(500).json({
-            message: error.message
-        });
-    }
-})
+router.get('/', (req, res) => {
+    Book.find()
+        .then(books => res.json(books))
+        .catch(err => res.status(404).json({ nobooksfound: 'No Books found' }));
+});
 
-router.get('/getOne/:id', async (request, response) => {
-    try {
-        const data = await Model.findById(request.params.id);
-        response.status(200).json(data);
-    } catch (error) {
-        response.status(500).json({
-            message: error.message
-        });
-    }
-})
+router.get('/:id', (req, res) => {
+    Book.findById(req.params.id)
+        .then(book => res.json(book))
+        .catch(err => res.status(404).json({ nobookfound: 'No Book found' }));
+});
 
-router.patch('/update/:id', async (request, response) => {
-    try {
-        const id = request.params.id;
-        const updatedData = request.body;
-        const options = { new: true };
-        const result = await Model.findByIdAndUpdate(id, updatedData, options);
-        response.status(201).json(result);
-    } catch (error) {
-        response.status(400).json({
-            message: error.message
-        });
-    }
-})
+router.post('/', (req, res) => {
+    Book.create(req.body)
+        .then(book => res.json({ msg: 'Book added successfully' }))
+        .catch(err => res.status(400).json({ error: 'Unable to add this book' }));
+});
 
-router.delete('/delete/:id', async (request, response) => {
-    try {
-        const id = request.params.id;
-        const data = await Model.findByIdAndDelete(id);
-        response.status(201).json(`Docuiment with ${data.name} has been deleted.`);
-    } catch (error) {
-        response.status(500).json({
-            message: error.message
-        });
-    }
-})
+router.put('/:id', (req, res) => {
+    Book.findByIdAndUpdate(req.params.id, req.body)
+        .then(book => res.json({ msg: 'Updated successfully' }))
+        .catch(err =>
+            res.status(400).json({ error: 'Unable to update the Database' })
+        );
+});
+
+router.delete('/:id', (req, res) => {
+    Book.findByIdAndRemove(req.params.id, req.body)
+        .then(book => res.json({ mgs: 'Book entry deleted successfully' }))
+        .catch(err => res.status(404).json({ error: 'No such a book' }));
+});
 
 module.exports = router;
