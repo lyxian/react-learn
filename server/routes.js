@@ -72,4 +72,25 @@ router.post('/delete', async (request, response) => {
     }
 })
 
+// router.delete('/deleteAll', async (request, response) => {
+//     try {
+//         const data = await Model.find()
+//         data.map(async (document) => {
+//             try {
+//                 let deleted = await Model.findByIdAndDelete(document._id.toString())
+//                 console.log(`Success: Task-${deleted.name} has been deleted.`)
+//             } catch (error) {
+//                 console.log(`Failure: Task-${document.name} is not deleted.`)
+//             }
+//         })
+//         response.status(201).json({
+//             message: "Database cleared",
+//         });
+//     } catch (error) {
+//         response.status(500).json({
+//             message: error.message
+//         });
+//     }
+// })
+
 module.exports = router;
