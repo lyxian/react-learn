@@ -14,10 +14,12 @@ const BookSchema = new mongoose.Schema({
         required: true
     },
     description: {
-        type: String
+        type: String,
+        required: true
     },
     published_date: {
-        type: Date
+        type: Date,
+        required: true
     },
     publisher: {
         type: String
@@ -30,4 +32,3 @@ const BookSchema = new mongoose.Schema({
 
 module.exports = mongoose.model('book-store', BookSchema);
 // module.exports = mongoose.model('book-store', BookSchema, 'book-store');
-// module.exports = Book = mongoose.model('book-store', BookSchema);
