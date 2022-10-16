@@ -44,7 +44,7 @@ class CreateBook extends Component {
           published_date: "",
           publisher: "",
         });
-        // this.props.history.push("/");
+        this.props.navigate("/show-books/");
         console.log("Success in CreateBook!");
       })
       .catch((err) => {

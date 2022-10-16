@@ -37,6 +37,7 @@ class showBookDetails extends Component {
     axios
       .delete(`${localhost}/api/books/` + id)
       .then((res) => {
+        this.props.navigate("/show-books/");
         console.log("Success in ShowBookDetails_deleteClick!");
       })
       .catch((err) => {

@@ -57,6 +57,7 @@ class UpdateBookInfo extends Component {
     axios
       .put(`${localhost}/api/books/` + this.props.match.params.id, data)
       .then((res) => {
+        this.props.navigate("/show-books/" + this.props.match.params.id);
         console.log("Success in UpdateBookInfo!");
       })
       .catch((err) => {

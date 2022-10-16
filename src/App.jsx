@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useParams,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 
 import CreateBook from "./components/CreateBook";
@@ -20,14 +27,39 @@ function Home() {
 
 class App extends Component {
   render() {
+    const ShowBookDetailsWrapper = (props) => {
+      const navigate = useNavigate();
+      const params = useParams();
+      console.log(params);
+      return (
+        <ShowBookDetails
+          navigate={navigate}
+          {...{ ...props, match: { params } }}
+        />
+      );
+    };
+    const UpdateBookInfoWrapper = (props) => {
+      const navigate = useNavigate();
+      const params = useParams();
+      console.log(params);
+      return (
+        <UpdateBookInfo
+          navigate={navigate}
+          {...{ ...props, match: { params } }}
+        />
+      );
+    };
     return (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={Home()} />
           <Route path="/show-books" element={<ShowBookList />} />
           <Route path="/create-book" element={<CreateBook />} />
-          <Route path="/edit-book/:id" element={<UpdateBookInfo />} />
-          <Route path="/show-book/:id" element={<ShowBookDetails />} />
+          <Route
+            path="/edit-book/:id"
+            element={<UpdateBookInfoWrapper history={this.props.history} />}
+          />
+          <Route path="/show-books/:id" element={<ShowBookDetailsWrapper />} />
         </Routes>
       </BrowserRouter>
     );
