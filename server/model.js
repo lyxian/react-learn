@@ -26,7 +26,8 @@ const BookSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-});
+}, { collection: 'book-store' });
 
 module.exports = mongoose.model('book-store', BookSchema);
+// module.exports = mongoose.model('book-store', BookSchema, 'book-store');
 // module.exports = Book = mongoose.model('book-store', BookSchema);

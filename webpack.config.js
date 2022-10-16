@@ -10,6 +10,7 @@ const config = {
   },
   // mode: "development" // "production"
   devServer: {
+    historyApiFallback: true,
     port: 3000,
     // hot: true,
     // liveReload: false

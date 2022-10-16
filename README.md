@@ -22,6 +22,7 @@ mongoose@6.6.3
 nodemon@2.0.20
 react@18.2.0
 react-dom@18.2.0
+react-router-dom@6.4.2
 --save-dev
 @babel/cli@7.19.3
 @babel/node@7.19.1
