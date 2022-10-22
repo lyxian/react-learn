@@ -1,98 +1,24 @@
-.App {
-    text-align: center;
+.app {
+    background: #209cee;
+    height: 100vh;
+    padding: 30px;
 }
 
-.App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 40vmin;
-    pointer-events: none;
+.todo-list {
+    background: #e8e8e8;
+    border-radius: 4px;
+    max-width: 400px;
+    padding: 5px;
 }
 
-.App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+.todo {
     align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-}
-
-.App-link {
-    color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.CreateBook {
-    background-color: #2c3e50;
-    min-height: 100vh;
-    color: white;
-}
-
-.ShowBookDetails {
-    background-color: #2c3e50;
-    min-height: 100vh;
-    color: white;
-}
-
-.UpdateBookInfo {
-    background-color: #2c3e50;
-    min-height: 100vh;
-    color: white;
-}
-
-.ShowBookList {
-    background-color: #2c3e50;
-    height: 100%;
-    width: 100%;
-    min-height: 100vh;
-    min-width: 100px;
-    color: white;
-}
-
-
-/* BookList Styles */
-.list {
-    display: grid;
-    margin: 20px 0 50px 0;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 1fr;
-    grid-gap: 2em;
-}
-
-.card-container {
-    width: 250px;
-    border: 1px solid rgba(0,0,.125);
-    margin: 0 auto;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.desc {
-    height: 130px;
-    padding: 10px;
-}
-
-.desc h2 {
-    font-size: 1em;
-    font-weight: 400;
-}
-
-.desc h3, p {
-    font-weight: 300;
-}
-
-.desc h3 {
-    color: #6c757d;
-    font-size: 1em;
-    padding: 10px 0 10px 0;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+    display: flex;
+    font-size: 12px;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    padding: 3px 10px;
 }
