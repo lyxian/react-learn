@@ -49,7 +49,7 @@ class ShowBookList extends Component {
 
             <div className="col-md-11">
               <Link
-                to="/create-books"
+                to="/create-book"
                 className="btn btn-outline-warning float-right"
               >
                 + Add New Book
