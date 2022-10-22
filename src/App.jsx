@@ -4,7 +4,7 @@ import "./App.css";
 import Button from "./components/Button";
 
 // function Task(props) {
-function Task({ props, index, completedTask }) {
+function Task({ props, index, completeTask, removeTask }) {
   // console.log(props);
   return (
     <div
@@ -13,7 +13,8 @@ function Task({ props, index, completedTask }) {
     >
       {props.text}
       <div>
-        <button onClick={() => completedTask(index)}>Complete</button>
+        <button onClick={() => completeTask(index)}>Complete</button>
+        <button onClick={() => removeTask(index)}>x</button>
       </div>
     </div>
   );
@@ -53,9 +54,15 @@ function App() {
     setTasks(newTasks);
   };
 
-  const completedTask = (index) => {
+  const completeTask = (index) => {
     const newTasks = [...tasks];
     newTasks[index].isCompleted = true;
+    setTasks(newTasks);
+  };
+
+  const removeTask = (index) => {
+    const newTasks = [...tasks];
+    newTasks.splice(index, 1);
     setTasks(newTasks);
   };
 
@@ -67,7 +74,8 @@ function App() {
             key={index}
             index={index}
             props={task}
-            completedTask={completedTask}
+            completeTask={completeTask}
+            removeTask={removeTask}
           />
         ))}
         <TaskForm addTask={addTask} />
