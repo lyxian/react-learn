@@ -1,20 +1,16 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import Button from "./components/Button";
-
-// function Task(props) {
-function Task({ props, index, completeTask, removeTask }) {
-  // console.log(props);
+function Task(props) {
+  const taskStyle = props.isCompleted ? "line-through" : "";
   return (
-    <div
-      className="todo"
-      style={{ textDecoration: props.isCompleted ? "line-through" : "" }}
-    >
+    <div className="todo" style={{ textDecoration: taskStyle }}>
       {props.text}
       <div>
-        <button onClick={() => completeTask(index)}>Complete</button>
-        <button onClick={() => removeTask(index)}>x</button>
+        <button onClick={() => props.completeTask(props.index)}>
+          Complete
+        </button>
+        <button onClick={() => props.removeTask(props.index)}></button>
       </div>
     </div>
   );
@@ -73,7 +69,8 @@ function App() {
           <Task
             key={index}
             index={index}
-            props={task}
+            text={task.text}
+            isCompleted={task.isCompleted}
             completeTask={completeTask}
             removeTask={removeTask}
           />
