@@ -21,7 +21,8 @@ const config = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"]
+            presets: ["@babel/preset-env",
+              ["@babel/preset-react", { "runtime": "automatic" }]]
           }
         },
         exclude: /node_modules/
@@ -29,7 +30,11 @@ const config = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
-      }
+      },
+      {
+        test: /\.(gif|svg|jpg|png)$/,
+        loader: "file-loader",
+      },
     ]
   },
   resolve: {
