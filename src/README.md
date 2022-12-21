@@ -82,7 +82,27 @@
 
 **Composition vs Inheritance**
 
+- _Containment_ : Some components don’t know their children ahead of time. This is especially common for components like `Sidebar` or `Dialog` that represent generic “boxes”. We recommend that such components use the special children prop to pass `children` elements directly into their output
+- _Specialization_ : In React, this is also achieved by composition, where a more “specific” component renders a more “generic” one and configures it with props:
+- Props and composition give you all the flexibility you need to customize a component’s look and behavior in an explicit and safe way. Remember that components may accept arbitrary props, including primitive values, React elements, or functions.
+- If you want to reuse non-UI functionality between components, we suggest extracting it into a separate JavaScript module. The components may import it and use that function, object, or class, without extending it.
+
 **Thinking In React**
+
+- Start With A Mock
+  - Step 1: Break The UI Into A Component Hierarchy
+    - FilterableProductTable (orange): contains the entirety of the example
+    - SearchBar (blue): receives all user input
+    - ProductTable (green): displays and filters the data collection based on user input
+    - ProductCategoryRow (turquoise): displays a heading for each category
+    - ProductRow (red): displays a row for each product
+  - Step 2: Build A Static Version in React
+    - `props` get passed to the component (similar to function parameters) whereas,
+    - `state` is managed within the component (similar to variables declared within a function)
+  - Step 3: Identify The Minimal (but complete) Representation Of UI State
+    - To make your UI interactive, you need to be able to trigger changes to your underlying data model. React achieves this with `state`.
+  - Step 4: Identify Where Your State Should Live
+  - Step 5: Add Inverse Data Flow
 
 ## Advanced Guides
 
