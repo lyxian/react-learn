@@ -1,0 +1,9 @@
+.category {
+    display: flex;
+}
+
+.category div {
+    margin: 5px;
+    padding: 3px;
+    border: 1px solid black;
+}
