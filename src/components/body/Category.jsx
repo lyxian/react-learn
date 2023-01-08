@@ -1,12 +1,24 @@
 import React, { Component } from "react";
 import "./Category.css";
+import { CategoryContext } from "../../App";
+import { categories } from "../../data/products";
 
-function Category(props) {
+function Category() {
+  const [category, setCategory] = React.useContext(CategoryContext); // valus is not defined -> setState new data type does not match old data type
+  const Categories = Object.keys(categories);
+
   return (
     <React.Fragment>
-      <div>Mains</div>
-      <div>Sides</div>
-      <div>Beverage</div>
+      {Categories.map((Category, index) => (
+        <button
+          key={index}
+          type="button"
+          className="categoryButton"
+          onClick={() => setCategory(Category)}
+        >
+          <h4>{Category}</h4>
+        </button>
+      ))}
     </React.Fragment>
   );
 }

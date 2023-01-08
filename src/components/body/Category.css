@@ -2,8 +2,27 @@
     display: flex;
 }
 
-.category div {
-    margin: 5px;
-    padding: 3px;
-    border: 1px solid black;
+.category > button:first-child {
+    margin-left: 10px;
+}
+
+.category > button {
+    margin: 20px 5px;
+    padding: 5px;
+    border: none; /* 1px solid black; */
+    border-radius: 5px;
+}
+
+.category > button:hover {
+    background-color: rgb(214, 214, 214);
+    cursor: pointer;
+}
+
+.category > button > h4 {
+    margin: 10px;
+    /* padding: 10px; */
+}
+
+.categoryButton {
+    display: block;
 }

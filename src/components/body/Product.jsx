@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Product.css";
-import { products } from "../../data/products";
+import { products, categories } from "../../data/products";
+import { CategoryContext } from "../../App";
 
 function Card(props) {
   const image =
@@ -32,19 +33,22 @@ function Card(props) {
   );
 }
 
-function Product(props) {
-  const productCards = products.map((product, index) => (
-    <Card key={index} product={product} />
-  ));
-  const productCategory = props.category ? props.category : "<Category>";
-  const productDescription = props.Description
-    ? props.Description
-    : "<Description>";
+function Product() {
+  const productCategory = React.useContext(CategoryContext)[0];
+  const productDescription = categories[productCategory];
+  const FILTER_MAP = {
+    Mains: (product) => product.category === "Mains",
+    Sides: (product) => product.category === "Sides",
+    Beverage: (product) => product.category === "Beverage",
+  };
+  const productCards = products
+    .filter(FILTER_MAP[productCategory])
+    .map((product, index) => <Card key={index} product={product} />);
   return (
     <React.Fragment>
       <div className="productHeader">
-        <div>{productCategory}</div>
-        <div>{productDescription}</div>
+        <h2>{productCategory}</h2>
+        <h4>{productDescription}</h4>
       </div>
       <div className="productCards">{productCards}</div>
     </React.Fragment>
