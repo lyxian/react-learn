@@ -6,19 +6,24 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="app">
-        {/* <h1>This is Heading 1.</h1> */}
-        {/* <Button /> */}
-        {/* <p>I am a paragraph.</p> */}
+export const CategoryContext = React.createContext();
+
+function App() {
+  const [category, setCategory] = React.useState("Mains");
+
+  return (
+    <div className="app">
+      {/* <h1>This is Heading 1.</h1> */}
+      {/* <Button /> */}
+      {/* <p>I am a paragraph.</p> */}
+      <CategoryContext.Provider value={[category, setCategory]}>
         <Header />
         <Body />
         <Footer />
-      </div>
-    );
-  }
+      </CategoryContext.Provider>
+      {/* <button onClick={() => setCategory({ category: value })}>TEST</button> */}
+    </div>
+  );
 }
 
 export default App;
