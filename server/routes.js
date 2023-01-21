@@ -74,7 +74,7 @@ router.post("/login", async (req, res) => {
         if (user && (password == user.password)) {
             // Create token
             const token = jwt.sign(
-                { user_id: user._id, email },
+                { user_id: user._id, email }, // jwt payload
                 process.env.TOKEN_KEY,
                 {
                     expiresIn: "2h",
@@ -95,8 +95,31 @@ router.post("/login", async (req, res) => {
 
 const auth = require("./auth");
 
-router.get("/welcome", auth, (req, res) => {
-    res.status(200).send("Welcome 🙌 ");
+function parseJwt(token) {
+    const base64String = token.split('.')[1];
+    const decodedValue = JSON.parse(Buffer.from(base64String, 'base64').toString('ascii'));
+    // console.log(decodedValue);
+    return decodedValue;
+
+    // - Client-side decryption
+    // var base64Url = token.split('.')[1];
+    // var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    // JSON.parse(Buffer.from(base64,'base64').toString('ascii'));
+    // var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+    //     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    // }).join(''));
+
+    // return JSON.parse(jsonPayload);
+}
+
+router.get("/welcome", auth, async (req, res) => {
+    email = parseJwt(req.headers["x-access-token"]).email
+    const user = await User.findOne({ email });
+    res.status(200).json({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        message: "Welcome 🙌 "
+    });
 });
 
 module.exports = router;

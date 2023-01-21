@@ -19,6 +19,10 @@ class App extends Component {
       email: "",
       password: "",
       token: "",
+      checkUser: false,
+      showError: false,
+      authFirstName: "",
+      authLastName: "",
     };
   }
 
@@ -108,10 +112,20 @@ class App extends Component {
         },
       })
       .then((res) => {
-        console.log(res);
+        this.setState({
+          checkUser: true,
+          showError: false,
+          authFirstName: res.data.firstName,
+          authLastName: res.data.lastName,
+        });
+        // console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({
+          checkUser: false,
+          showError: true,
+        });
+        // console.log(err);
         // alert("Error in login");
         // console.log("Error in adding task!");
       });
@@ -122,6 +136,22 @@ class App extends Component {
       <div className="app">
         <h1>This is Heading 1.</h1>
         <Button name="Authenticate" submitForm={this.handleAuth} />
+        {this.state.checkUser && (
+          <div>
+            <hr />
+            <p>
+              Welcome, {this.state.authFirstName} {this.state.authLastName}
+            </p>
+            <hr />
+          </div>
+        )}
+        {this.state.showError && (
+          <div>
+            <hr />
+            <p>Bad credentials, please try again</p>
+            <hr />
+          </div>
+        )}
         <p>I am a paragraph.</p>
         <h3>Registration</h3>
         <form>
