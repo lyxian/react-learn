@@ -6,6 +6,7 @@
 - [to-do-list](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_todo_list_beginning)
 - [book-store](https://blog.logrocket.com/mern-stack-tutorial)
 - [real-time-location](https://blog.logrocket.com/building-real-time-location-app-node-js-socket-io/)
+- [to-do-list-2](https://novu.co/blog/building-the-most-practical-todolist-with-react-and-websockets/)
 
 ```
 Npm Commands
@@ -26,6 +27,8 @@ react-dom@18.2.0
 jsonwebtoken@9.0.0
 socket.io@4.5.4
 pg@8.8.0
+react-router-dom@6.3.0
+socket.io-client@4.6.1
 --save-dev
 @babel/cli@7.19.3
 @babel/node@7.19.1
