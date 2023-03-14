@@ -1,18 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
+import socketIO from "socket.io-client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Main from "./components/Main";
+import Home from "./components/Home";
 import "./App.css";
 
-import Button from "./components/Button";
+const socket = socketIO.connect(`${process.env.LOCALHOST}:4000`);
 
-class App extends Component {
-  render() {
-    return (
-      <div className="app">
-        <h1>This is Heading 1.</h1>
-        <Button />
-        <p>I am a paragraph.</p>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/app" element={<Main socket={socket} />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;
