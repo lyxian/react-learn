@@ -27,7 +27,7 @@ class Form extends Component {
     };
 
     axios
-      .post(`${localhost}/api/post`, data)
+      .post(`${localhost}:${port}/api/post`, data)
       .then((res) => {
         this.props.addTask(data);
         this.setState({

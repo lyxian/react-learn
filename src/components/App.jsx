@@ -7,6 +7,7 @@ import Form from "./Form";
 import FilterButton from "./FilterButton";
 
 const localhost = process.env.LOCALHOST;
+const port = process.env.PORT;
 
 class App extends Component {
   // OR root.render(<App tasks=../>);
@@ -21,7 +22,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get(`${localhost}/api/getAll`)
+      .get(`${localhost}:${port}/api/getAll`)
       .then((res) => {
         this.setState({
           tasks: res.data,
@@ -57,7 +58,7 @@ class App extends Component {
     const data = { id, completed: completed };
 
     axios
-      .post(`${localhost}/api/update`, data)
+      .post(`${localhost}:${port}/api/update`, data)
       .then((res) => {
         console.log(data);
       })
@@ -72,7 +73,7 @@ class App extends Component {
     const data = { id };
 
     axios
-      .post(`${localhost}/api/delete`, data)
+      .post(`${localhost}:${port}/api/delete`, data)
       .then((res) => {
         const remainingTasks = this.state.tasks.filter(
           (task) => id !== task.id
@@ -94,7 +95,7 @@ class App extends Component {
 
     console.log(data);
     axios
-      .post(`${localhost}/api/update`, data)
+      .post(`${localhost}:${port}/api/update`, data)
       .then((res) => {
         const editedTaskList = this.state.tasks.map((task) => {
           // if this task has the same ID as the edited task
