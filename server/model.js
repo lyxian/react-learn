@@ -1,14 +1,22 @@
 const mongoose = require('mongoose');
 
 const dataSchema = new mongoose.Schema({
-    name: {
+    id: {
         required: true,
         type: String
     },
-    age: {
+    user: {
         required: true,
-        type: Number
+        type: String
+    },
+    todo: {
+        required: true,
+        type: String
+    },
+    comments: {
+        required: true,
+        type: Array
     }
 })
 
-module.exports = mongoose.model('Data', dataSchema)
+module.exports = mongoose.model('to-do-list-2', dataSchema)

@@ -4,18 +4,20 @@ const router = express.Router();
 
 router.post('/post', async (request, response) => {
     const data = new Model({
-        name: request.body.name,
-        age: request.body.age
+        id: request.body.id,
+        user: request.body.user,
+        todo: request.body.todo,
+        comments: request.body.comments
     })
     try {
         const dataToSave = await data.save();
         response.status(200).json(dataToSave);
     } catch (error) {
-        response.statusMessage(400).json({
+        response.status(400).json({
             message: error.message
         });
     }
-    // response.send('Post API');
+    // response.send('Post API');  <<  causing "Error can't set headers"
 })
 
 router.get('/getAll', async (request, response) => {
@@ -31,7 +33,8 @@ router.get('/getAll', async (request, response) => {
 
 router.get('/getOne/:id', async (request, response) => {
     try {
-        const data = await Model.findById(request.params.id);
+        // const data = await Model.findById(request.params.id);
+        const data = await Model.findOne({ id: request.params.id })
         response.status(200).json(data);
     } catch (error) {
         response.status(500).json({
@@ -40,12 +43,12 @@ router.get('/getOne/:id', async (request, response) => {
     }
 })
 
-router.patch('/update/:id', async (request, response) => {
+// router.patch('/update/:id', async (request, response) => {
+router.post('/update', async (request, response) => {
     try {
-        const id = request.params.id;
-        const updatedData = request.body;
-        const options = { new: true };
-        const result = await Model.findByIdAndUpdate(id, updatedData, options);
+        const body = request.body;
+        const options = { new: false };
+        const result = await Model.findOneAndUpdate({ id: body.id }, { todo: body.todo, comments: body.comments }, options)
         response.status(201).json(result);
     } catch (error) {
         response.status(400).json({
@@ -54,11 +57,15 @@ router.patch('/update/:id', async (request, response) => {
     }
 })
 
-router.delete('/delete/:id', async (request, response) => {
+// router.delete('/delete/:id', async (request, response) => {
+router.post('/delete', async (request, response) => {
     try {
-        const id = request.params.id;
-        const data = await Model.findByIdAndDelete(id);
-        response.status(201).json(`Docuiment with ${data.name} has been deleted.`);
+        // const data = await Model.findOne({ id: request.params.id })
+        const body = request.body
+        const data = await Model.findOneAndDelete(body)
+        response.status(201).json({
+            message: `Document with id-${data.id} has been deleted.`
+        });
     } catch (error) {
         response.status(500).json({
             message: error.message

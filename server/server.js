@@ -1,18 +1,32 @@
 require('dotenv').config();
-// const mongoString = process.env.DATABASE_URL;    // DATABASE_URL from .env = <CONN_STRING>/<DATABASE_NAME>
+const mongoString = process.env.DATABASE_URL;    // DATABASE_URL from .env = <CONN_STRING>/<DATABASE_NAME>
 // const port = process.env.PORT || 6379;
 const LOCALHOST = process.env.LOCALHOST || 'http://localhost';
 
-const express = require("express");
+const axios = require('axios');
+const routes = require('./routes');
+const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
 const PORT = 4000;
 const http = require("http").Server(app);
 const cors = require("cors");
 
+mongoose.connect(mongoString);
+const database = mongoose.connection;
+
+database.on('error', (error) => {
+    console.log(error);
+})
+
+database.once('connected', () => {
+    console.log('Database connected');
+})
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(cors());
+app.use('/api', routes);
 
 const socketIO = require('socket.io')(http, {
     cors: {
@@ -23,7 +37,14 @@ const socketIO = require('socket.io')(http, {
 });
 
 //👇🏻 Array containing all the to-dos
-let todoList = [];
+let todoList
+axios.get(`${LOCALHOST}:${PORT}/api/getAll`)
+    .then(response => {
+        todoList = response.data;
+    })
+    .catch(error => {
+        throw Error(error);
+    });
 
 socketIO.on("connection", (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`);

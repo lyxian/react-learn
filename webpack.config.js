@@ -43,6 +43,7 @@ const config = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.LOCALHOST': JSON.stringify(process.env.LOCALHOST),
+      'process.env.PORT': JSON.stringify(process.env.SERVER_PORT),
     }),
   ],
 };

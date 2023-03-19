@@ -22,19 +22,60 @@ function Main({ socket }) {
         e.preventDefault();
         //👇🏻 Sends a event - addTodo via Socket.io
         // containing the id, todo, and the comments array
-        socket.emit("addTodo", {
+        const data = {
             id: generateID(),
             todo,
             comments: [],
-        });
+        }
+        socket.emit("addTodo", data);
         setTodo("");
+        // Post to DB
+        fetch(`${process.env.LOCALHOST}:${process.env.PORT}/api/post`, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            body: JSON.stringify({ ...data, user: localStorage.getItem("_username") }), // body data type must match "Content-Type" header
+            // mode: "cors", // no-cors, *cors, same-origin
+            // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            // credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                alert("Error in adding task!");
+                // console.log("Error in adding task!");
+            });
     };
 
-    const deleteTodo = (id) => socket.emit("deleteTodo", id);
+    const deleteTodo = (id) => {
+        socket.emit("deleteTodo", id)
+        // Post to DB
+        fetch(`${process.env.LOCALHOST}:${process.env.PORT}/api/delete`, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            body: JSON.stringify({ id }), // body data type must match "Content-Type" header
+            // mode: "cors", // no-cors, *cors, same-origin
+            // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            // credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                alert("Error in deleting task!");
+                // console.log("Error in adding task!");
+            });
+    };
 
     useEffect(() => {
         function fetchTodos() {
-            fetch(`${process.env.LOCALHOST}:4000/api`)
+            fetch(`${process.env.LOCALHOST}:4000/api/getAll`)
                 .then((res) => res.json())
                 .then((data) => setTodoList(data))
                 .catch((err) => console.error(err));
